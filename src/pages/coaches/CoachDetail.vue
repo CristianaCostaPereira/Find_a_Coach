@@ -3,5 +3,5 @@
 
   <router-view></router-view>
 
-  <router-link :to="{ name: 'coach-contact', params: { id: 'c1'} }">Contact</router-link>
+  <router-link :to="{ name: 'coach-contact', params: { id: id } }">Contact</router-link>
 </template>
