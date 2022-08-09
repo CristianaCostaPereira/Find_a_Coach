@@ -5,17 +5,30 @@
     <h4>${{ rate}}/hour</h4>
 
     <div>
-      <span
+      <base-badge
         v-for="area in areas"
-        :key="area">
+        :key="area"
 
-        {{ area }}
-      </span>
+        :type="area"
+        :title="area">
+      </base-badge>
     </div>
 
     <div class="actions">
-      <router-link :to="{ name: 'coach-contact', params: { id: id } }">Contact</router-link>
-      <router-link :to="{ name: 'coach', params: { id: id } }">View Details</router-link>
+      <base-button
+        mode="outline"
+        link
+        :to="{ name: 'coach-contact', params: { id: id } }">
+
+        Contact
+      </base-button>
+
+      <base-button
+        link
+        :to="{ name: 'coach', params: { id: id } }">
+
+        View Details
+      </base-button>
     </div>
   </li>
 </template>

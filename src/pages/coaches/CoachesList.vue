@@ -4,28 +4,33 @@
   </section>
 
   <section>
-    <div class="controls">
-      <button>Refresh</button>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline">Refresh</base-button>
 
-      <router-link :to="{ name: 'register' }">
-        Register as a Coach
-      </router-link>
-    </div>
+        <base-button
+          link
+          :to="{ name: 'register' }">
 
-    <ul v-if="hasCoaches">
-      <coach-item
-        v-for="coach in coaches"
-        :key="coach.id"
+          Register as a Coach
+        </base-button>
+      </div>
 
-        :id="coach.id"
-        :first-name="coach.firstName"
-        :last-name="coach.lastName"
-        :rate="coach.hourlyRate"
-        :areas="coach.areas">
-      </coach-item>
-    </ul>
+      <ul v-if="hasCoaches">
+        <coach-item
+          v-for="coach in coaches"
+          :key="coach.id"
 
-    <h3 v-else>No coaches found</h3>
+          :id="coach.id"
+          :first-name="coach.firstName"
+          :last-name="coach.lastName"
+          :rate="coach.hourlyRate"
+          :areas="coach.areas">
+        </coach-item>
+      </ul>
+
+      <h3 v-else>No coaches found</h3>
+    </base-card>
   </section>
 </template>
 
