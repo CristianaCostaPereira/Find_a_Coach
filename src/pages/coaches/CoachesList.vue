@@ -9,6 +9,7 @@
         <base-button mode="outline">Refresh</base-button>
 
         <base-button
+          v-if="!isCoach"
           link
           :to="{ name: 'register' }">
 
@@ -56,7 +57,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters ('coaches', ['coaches', 'hasCoaches']),
+    ...mapGetters ('coaches', ['coaches', 'hasCoaches', 'isCoach']),
 
     filteredCoaches () {
       return this.coaches.filter(coach => {
