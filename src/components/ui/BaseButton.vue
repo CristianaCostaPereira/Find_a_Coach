@@ -2,6 +2,7 @@
   <button
     v-if="!link"
     :class="mode">
+
     <slot></slot>
   </button>
 
@@ -30,9 +31,11 @@ export default {
     },
 
     to: {
-      type: String,
+      type: Object,
       required: false,
-      default: '/'
+      default () {
+        return { name: 'coaches-list' }
+      }
     }
   }
 }
