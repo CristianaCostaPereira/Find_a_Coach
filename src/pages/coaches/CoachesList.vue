@@ -1,6 +1,6 @@
 <template>
   <section>
-    FILTER
+    <coach-filter @change-filter="setFilters"></coach-filter>
   </section>
 
   <section>
@@ -18,7 +18,7 @@
 
       <ul v-if="hasCoaches">
         <coach-item
-          v-for="coach in coaches"
+          v-for="coach in filteredCoaches"
           :key="coach.id"
 
           :id="coach.id"
@@ -37,18 +37,47 @@
 <script>
 import { mapGetters } from 'vuex'
 import CoachItem from '../../components/coaches/CoachItem.vue'
+import CoachFilter from '../../components/coaches/CoachFilter.vue'
 
 export default {
   components: {
-    CoachItem
+    CoachItem,
+    CoachFilter
+  },
+
+  data () {
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true
+      }
+    }
   },
 
   computed: {
-    ...mapGetters ('coaches', ['coaches', 'hasCoaches'])
+    ...mapGetters ('coaches', ['coaches', 'hasCoaches']),
 
-    // filteredCoaches () {
-    //   return this.$store.getters['coaches/coaches']
-    // }
+    filteredCoaches () {
+      return this.coaches.filter(coach => {
+        if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
+          return true
+        }
+        if (this.activeFilters.backend && coach.areas.includes('backend')) {
+          return true
+        }
+        if (this.activeFilters.career && coach.areas.includes('career')) {
+          return true
+        }
+        return false
+      })
+    }
+  },
+
+  methods: {
+    setFilters (updatedFilters) {
+      this.activeFilters = updatedFilters
+    }
   }
 }
 </script>
