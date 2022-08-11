@@ -6,7 +6,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+        <base-button mode="outline" @click="fetchCoaches">Refresh</base-button>
 
         <base-button
           v-if="!isCoach && !isLoading"
@@ -21,7 +21,7 @@
         <base-spinner></base-spinner>
       </div>
 
-      <ul v-else-if="hasCoaches">
+      <ul v-else-if="hasCoaches && !isLoading">
         <coach-item
           v-for="coach in filteredCoaches"
           :key="coach.id"
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import CoachItem from '../../components/coaches/CoachItem.vue'
 import CoachFilter from '../../components/coaches/CoachFilter.vue'
 
@@ -63,7 +63,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters ('coaches', ['coaches', 'isCoach']),
+    ...mapGetters ('coaches', ['coaches', 'hasCoaches', 'isCoach']),
 
     filteredCoaches () {
       return this.coaches.filter(coach => {
@@ -80,27 +80,29 @@ export default {
       })
     },
 
-    hasCoaches () {
-      return !this.isLoading && this.$store.getters['coaches/hasCoaches']
-    }
+    // hasCoaches () {
+    //   return !this.isLoading && this.$store.getters['coaches/hasCoaches']
+    // }
   },
 
   methods: {
+    ...mapActions('coaches', ['loadCoaches']),
+
     setFilters (updatedFilters) {
       this.activeFilters = updatedFilters
     },
 
-    async loadCoaches () {
+    async fetchCoaches () {
       this.isLoading = true
 
-      await this.$store.dispatch('coaches/loadCoaches')
+      await this.loadCoaches()
 
       this.isLoading = false
     }
   },
 
   created () {
-    this.loadCoaches()
+    this.fetchCoaches()
   }
 }
 </script>
