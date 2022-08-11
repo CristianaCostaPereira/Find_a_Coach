@@ -32,9 +32,10 @@ const coachesModule = {
   },
 
   actions: {
-    registerCoach (context, data) {
+    async registerCoach (context, data) {
+      const userId = context.rootGetters.userId
+
       const coachData = {
-        id: context.rootGetters.userId,
         firstName: data.first,
         lastName: data.last,
         description: data.desc,
@@ -42,7 +43,21 @@ const coachesModule = {
         areas: data.areas
       }
 
-      context.commit('registerCoach', coachData)
+      const response = await fetch(`https://find-a-coach-109ab-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(coachData )
+      })
+
+      // const responseDate = await response.json()
+
+      if (!response.ok) {
+        // error
+      }
+
+      context.commit('registerCoach', {
+        ...coachData,
+        id: userId
+      })
     }
   },
 
