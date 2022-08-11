@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data () {
     return {
@@ -44,6 +46,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('requests', ['contactCoach']),
+
     submitForm () {
       this.formIsValid = true
 
@@ -55,6 +59,16 @@ export default {
         this.formIsValid = false
         return
       }
+
+      const data = {
+        coachId: this.$route.params.id,
+        email: this.email,
+        message: this.message,
+      }
+
+      this.contactCoach(data)
+
+      this.$router.replace({ name: 'coaches-list' })
     }
   }
 }

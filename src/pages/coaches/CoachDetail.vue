@@ -19,9 +19,9 @@
           Contact
         </base-button>
       </header>
-    </base-card>
 
-    <router-view></router-view>
+      <router-view></router-view>
+    </base-card>
   </section>
 
   <section>
