@@ -9,7 +9,7 @@
         <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
 
         <base-button
-          v-if="!isCoach"
+          v-if="!isCoach && !isLoading"
           link
           :to="{ name: 'register' }">
 
@@ -17,7 +17,11 @@
         </base-button>
       </div>
 
-      <ul v-if="hasCoaches">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+
+      <ul v-else-if="hasCoaches">
         <coach-item
           v-for="coach in filteredCoaches"
           :key="coach.id"
@@ -36,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import CoachItem from '../../components/coaches/CoachItem.vue'
 import CoachFilter from '../../components/coaches/CoachFilter.vue'
 
@@ -52,12 +56,14 @@ export default {
         frontend: true,
         backend: true,
         career: true
-      }
+      },
+
+      isLoading: false
     }
   },
 
   computed: {
-    ...mapGetters ('coaches', ['coaches', 'hasCoaches', 'isCoach']),
+    ...mapGetters ('coaches', ['coaches', 'isCoach']),
 
     filteredCoaches () {
       return this.coaches.filter(coach => {
@@ -72,6 +78,10 @@ export default {
         }
         return false
       })
+    },
+
+    hasCoaches () {
+      return !this.isLoading && this.$store.getters['coaches/hasCoaches']
     }
   },
 
@@ -80,7 +90,13 @@ export default {
       this.activeFilters = updatedFilters
     },
 
-    ...mapActions('coaches', ['loadCoaches'])
+    async loadCoaches () {
+      this.isLoading = true
+
+      await this.$store.dispatch('coaches/loadCoaches')
+
+      this.isLoading = false
+    }
   },
 
   created () {
