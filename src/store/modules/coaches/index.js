@@ -3,6 +3,8 @@ const coachesModule = {
 
   state () {
     return {
+      lastFetch: null,
+
       coaches: [
         {
           id: 'c1',
@@ -33,6 +35,10 @@ const coachesModule = {
     setCoaches (state, payload) {
       // We assumed that the payload is a list of coaches
       state.coaches = payload
+    },
+
+    setFetchTimestamp (state) {
+      state.lastFetch = new Date().getTime()
     }
   },
 
@@ -65,7 +71,12 @@ const coachesModule = {
       })
     },
 
-    async loadCoaches (context) {
+    async loadCoaches (context, payload) {
+      // Not fetch a new coach all the time and instead reuse the existinh data
+      if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+        return
+      }
+
       const response = await fetch(
         `https://find-a-coach-109ab-default-rtdb.firebaseio.com/coaches.json`
       )
@@ -93,6 +104,7 @@ const coachesModule = {
       }
 
       context.commit('setCoaches', coaches)
+      context.commit('setFetchTimestamp')
     }
   },
 
@@ -111,6 +123,22 @@ const coachesModule = {
       const userId = rootGetters.userId
 
       return coaches.some(coach => coach.id === userId)
+    },
+
+    shouldUpdate (state) {
+      const lastFetch = state.lastFetch
+
+      if (!lastFetch) {
+        // If we have no timestapmp we should update
+        return true
+      }
+
+      const currentTimestamp = new Date().getTime()
+
+      // compares the currentTimestamp with the stored timestamp
+      // Divided by 1000 because both numbers are in milliseconds
+      // Will return true if it is more than a minute ago; so we should update again
+      return(currentTimestamp - lastFetch) / 1000 > 60
     }
   }
 }

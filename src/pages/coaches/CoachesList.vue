@@ -14,7 +14,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline" @click="fetchCoaches">Refresh</base-button>
+        <base-button mode="outline" @click="fetchCoaches(true)">Refresh</base-button>
 
         <base-button
           v-if="!isCoach && !isLoading"
@@ -101,11 +101,11 @@ export default {
       this.activeFilters = updatedFilters
     },
 
-    async fetchCoaches () {
+    async fetchCoaches (refresh = false) {
       this.isLoading = true
 
       try {
-        await this.loadCoaches()
+        await this.loadCoaches({forceRefresh: refresh})
       } catch (error) {
         this.error = error.message || 'Something went wrong!'
       }
