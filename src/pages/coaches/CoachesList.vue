@@ -1,50 +1,52 @@
 <template>
-  <base-dialog
-    :show="!!error"
-    title="An error ocuured!"
-    @close="handleError">
+  <div>
+    <base-dialog
+      :show="!!error"
+      title="An error ocuured!"
+      @close="handleError">
 
-    <p>{{ error }}</p>
-  </base-dialog>
+      <p>{{ error }}</p>
+    </base-dialog>
 
-  <section>
-    <coach-filter @change-filter="setFilters"></coach-filter>
-  </section>
+    <section>
+      <coach-filter @change-filter="setFilters"></coach-filter>
+    </section>
 
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button mode="outline" @click="fetchCoaches(true)">Refresh</base-button>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline" @click="fetchCoaches(true)">Refresh</base-button>
 
-        <base-button
-          v-if="!isCoach && !isLoading"
-          link
-          :to="{ name: 'register' }">
+          <base-button
+            v-if="!isCoach && !isLoading"
+            link
+            :to="{ name: 'register' }">
 
-          Register as a Coach
-        </base-button>
-      </div>
+            Register as a Coach
+          </base-button>
+        </div>
 
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
 
-      <ul v-else-if="hasCoaches && !isLoading">
-        <coach-item
-          v-for="coach in filteredCoaches"
-          :key="coach.id"
+        <ul v-else-if="hasCoaches && !isLoading">
+          <coach-item
+            v-for="coach in filteredCoaches"
+            :key="coach.id"
 
-          :id="coach.id"
-          :first-name="coach.firstName"
-          :last-name="coach.lastName"
-          :rate="coach.hourlyRate"
-          :areas="coach.areas">
-        </coach-item>
-      </ul>
+            :id="coach.id"
+            :first-name="coach.firstName"
+            :last-name="coach.lastName"
+            :rate="coach.hourlyRate"
+            :areas="coach.areas">
+          </coach-item>
+        </ul>
 
-      <h3 v-else>No coaches found</h3>
-    </base-card>
-  </section>
+        <h3 v-else>No coaches found</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
