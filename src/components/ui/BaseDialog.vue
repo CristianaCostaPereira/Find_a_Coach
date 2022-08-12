@@ -7,7 +7,10 @@
     </div>
 
     <transition name="dialog">
-      <dialog open v-if="show">
+      <dialog
+        open
+        v-if="show">
+
         <header>
           <slot name="header">
             <h2>{{ title }}</h2>
@@ -51,9 +54,9 @@ export default {
   methods: {
     tryClose() {
       if (this.fixed) {
-        return;
+        return
       }
-      this.$emit('close');
+      this.$emit('close')
     },
   },
 }

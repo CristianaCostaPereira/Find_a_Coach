@@ -1,6 +1,6 @@
-import { createApp } from 'vue';
+import { createApp } from 'vue'
 
-import App from './App';
+import App from './App'
 import router from './router'
 import store from './store/index'
 import BaseCard from './components/ui/BaseCard'
@@ -20,4 +20,4 @@ app.component('base-badge', BaseBadge)
 app.component('base-spinner', BaseSpinner)
 app.component('base-dialog', BaseDialog)
 
-app.mount('#app');
+app.mount('#app')

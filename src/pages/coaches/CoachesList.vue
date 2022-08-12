@@ -15,7 +15,12 @@
     <section>
       <base-card>
         <div class="controls">
-          <base-button mode="outline" @click="fetchCoaches(true)">Refresh</base-button>
+          <base-button
+            mode="outline"
+            @click="fetchCoaches(true)">
+
+            Refresh
+          </base-button>
 
           <base-button
             v-if="!isCoach && !isLoading"
@@ -43,7 +48,7 @@
           </coach-item>
         </ul>
 
-        <h3 v-else>No coaches found</h3>
+        <h3 v-else>No coaches found 😔</h3>
       </base-card>
     </section>
   </div>

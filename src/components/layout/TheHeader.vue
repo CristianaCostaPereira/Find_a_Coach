@@ -4,8 +4,17 @@
       <h1><router-link to="/">Find a Coach</router-link></h1>
 
       <ul>
-        <li><router-link :to="{ name: 'coaches-list' }">All Coaches</router-link></li>
-        <li><router-link :to="{ name: 'requests' }">Requests</router-link></li>
+        <li>
+          <router-link :to="{ name: 'coaches-list' }">
+            All Coaches
+          </router-link>
+        </li>
+
+        <li>
+          <router-link :to="{ name: 'requests' }">
+            Requests
+          </router-link>
+        </li>
       </ul>
     </nav>
   </header>

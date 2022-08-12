@@ -24,7 +24,7 @@
       v-if="!formIsValid"
       class="errors">
 
-      Please enter a valid email and non-empty message.
+      Please enter a valid email and a non-empty message 📧 .
     </p>
 
     <div class="actions">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from 'vuex'
 
 export default {
   data () {

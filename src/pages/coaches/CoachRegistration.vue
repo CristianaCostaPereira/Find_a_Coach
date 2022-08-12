@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CoachForm from '../../components/coaches/CoachForm.vue';
-import { mapActions } from 'vuex';
+import CoachForm from '../../components/coaches/CoachForm.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
