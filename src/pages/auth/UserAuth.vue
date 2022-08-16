@@ -13,10 +13,14 @@
         <input type="password" id="password" v-model.trim="email">
       </div>
 
-      <p v-if="!formIsValid">
+      <div
+        v-if="!formIsValid"
+        class="errors">
 
-        Please enter a valid email and password (Must be, at least, 6 characters long).
-      </p>
+        <p>Please enter a valid email and password.</p>
+        <p>Your password must be, at least, 6 characters long.</p>
+      </div>
+
 
       <base-button>{{ submitButtonCaption }}</base-button>
 
@@ -115,5 +119,10 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.errors {
+  font-weight: bold;
+  color: red;
 }
 </style>
