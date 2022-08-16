@@ -86,7 +86,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['signup']),
+    ...mapActions(['signup', 'login']),
 
     async submitForm ()  {
       this.formIsValid = true
@@ -102,15 +102,17 @@ export default {
 
       this.isLoading = true
 
+      const actionPayload = {
+        email: this.email,
+        password: this.password
+      }
+
       try {
         if (this.mode === 'login') {
-        // ...
-      } else {
-        await this.signup({
-          email: this.email,
-          password: this.password
-        })
-      }
+          await this.login(actionPayload)
+        } else {
+          await this.signup(actionPayload)
+        }
       } catch (error) {
         this.error = error.message || 'Failed to authenticate, try again later'
       }
