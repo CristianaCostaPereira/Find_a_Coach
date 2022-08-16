@@ -10,7 +10,7 @@
       <div class="form-control">
         <label for="password">Password</label>
 
-        <input type="password" id="password" v-model.trim="email">
+        <input type="password" id="password" v-model.trim="password">
       </div>
 
       <div
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -65,6 +67,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['signup']),
+
     submitForm ()  {
       this.formIsValid = true
 
@@ -75,6 +79,15 @@ export default {
       ) {
         this.formIsValid = false
         return
+      }
+
+      if (this.mode === 'login') {
+        // ...
+      } else {
+        this.signup({
+          email: this.email,
+          password: this.password
+        })
       }
     },
 
