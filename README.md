@@ -3,9 +3,8 @@
 Web app built, from the ground up, with <ins>**Vue.js**</ins> *(version 3)* within the scope of the [Vue-Udemy](https://github.com/CristianaCostaPereira/Vue-Udemy) repository.
 
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa5v7w27EMHdikPWiXpjuWX4zp4gnOjnhoooWoyJohRZqio7Gh6X1xQnWO6t_LT4w76l0&usqp=CAU" width="750" height="250">
+<img src="https://us.123rf.com/450wm/jirsak/jirsak1601/jirsak160100014/50997473-lo-sviluppo-personale-crescita-personale-e-di-carriera-il-successo-il-progresso-e-potenziali-concett.jpg?ver=6" width="740" height="250">
 
-<br>
 
 ## Demo
 [Find a Coach Demo](https://find-a-coach-app-udemy.netlify.app/coaches)
@@ -15,7 +14,7 @@ Web app built, from the ground up, with <ins>**Vue.js**</ins> *(version 3)* with
 ## Introduction
 This application will have two main features:
 
-  1. find a coach
+  1. find a coach;
 
   2. send requests (messages) to potential coaches which we want to contact.
 
@@ -32,7 +31,7 @@ Contact a coach feature will, also, establish the connection to the other part o
 
 In `requests` we will be able to:
   * send requests to coaches;
-  * as a registered coach, view all your the incoming requests (messages) and use the email address to reply back;
+  * as a registered coach, view all your incoming requests (messages) and use the email address to reply back;
 
 <br>
 
@@ -49,7 +48,7 @@ Clone or fork the project.
 
 Then, install all the required packages and dependencies:
 
-`cd` into your new folder and in there run:
+`cd` into your new folder and, in there, run:
 ```
 npm install
 ```
