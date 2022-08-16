@@ -3,7 +3,7 @@
 Web app built, from the ground up, with <ins>**Vue.js**</ins> *(version 3)* within the scope of the [Vue-Udemy](https://github.com/CristianaCostaPereira/Vue-Udemy) repository.
 
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa5v7w27EMHdikPWiXpjuWX4zp4gnOjnhoooWoyJohRZqio7Gh6X1xQnWO6t_LT4w76l0&usqp=CAU" width="650" height="250">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa5v7w27EMHdikPWiXpjuWX4zp4gnOjnhoooWoyJohRZqio7Gh6X1xQnWO6t_LT4w76l0&usqp=CAU" width="750" height="250">
 
 <br>
 
