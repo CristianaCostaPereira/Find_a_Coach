@@ -1,38 +1,55 @@
 <template>
-  <base-card>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">E-Mail</label>
+  <div>
+    <base-dialog
+      :show="!!error"
+      title="An error occurred"
+      @close="handleError">
 
-        <input type="email" id="email" v-model.trim="email">
-      </div>
+      <p>{{ error }}</p>
+    </base-dialog>
 
-      <div class="form-control">
-        <label for="password">Password</label>
+    <base-dialog
+      :show="isLoading"
+      title="Authenticating..."
+      fixed>
 
-        <input type="password" id="password" v-model.trim="password">
-      </div>
+      <base-spinner></base-spinner>
+    </base-dialog>
 
-      <div
-        v-if="!formIsValid"
-        class="errors">
+    <base-card>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="email">E-Mail</label>
 
-        <p>Please enter a valid email and password.</p>
-        <p>Your password must be, at least, 6 characters long.</p>
-      </div>
+          <input type="email" id="email" v-model.trim="email">
+        </div>
 
+        <div class="form-control">
+          <label for="password">Password</label>
 
-      <base-button>{{ submitButtonCaption }}</base-button>
+          <input type="password" id="password" v-model.trim="password">
+        </div>
 
-      <base-button
-        type="button"
-        mode="flat"
-        @click="switchAuthMode">
+        <div
+          v-if="!formIsValid"
+          class="errors">
 
-        {{ switchModeButtonCaption }}
-      </base-button>
-    </form>
-  </base-card>
+          <p>Please enter a valid email and password.</p>
+          <p>Your password must be, at least, 6 characters long.</p>
+        </div>
+
+        <base-button>{{ submitButtonCaption }}</base-button>
+
+        <base-button
+          type="button"
+          mode="flat"
+          @click="switchAuthMode">
+
+          {{ switchModeButtonCaption }}
+        </base-button>
+      </form>
+    </base-card>
+  </div>
 </template>
 
 <script>
@@ -44,7 +61,9 @@ export default {
       email: '',
       password: '',
       formIsValid: true,
-      mode: 'login'
+      mode: 'login',
+      isLoading: false,
+      error: null
     }
   },
 
@@ -69,7 +88,7 @@ export default {
   methods: {
     ...mapActions(['signup']),
 
-    submitForm ()  {
+    async submitForm ()  {
       this.formIsValid = true
 
       if (
@@ -81,14 +100,22 @@ export default {
         return
       }
 
-      if (this.mode === 'login') {
+      this.isLoading = true
+
+      try {
+        if (this.mode === 'login') {
         // ...
       } else {
-        this.signup({
+        await this.signup({
           email: this.email,
           password: this.password
         })
       }
+      } catch (error) {
+        this.error = error.message || 'Failed to authenticate, try again later'
+      }
+
+      this.isLoading = false
     },
 
     switchAuthMode () {
@@ -97,6 +124,10 @@ export default {
       } else {
         this.mode = 'login'
       }
+    },
+
+    handleError () {
+      this.error = null
     }
   }
 }
