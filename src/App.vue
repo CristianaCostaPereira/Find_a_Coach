@@ -1,4 +1,5 @@
 <template>
+<!-- First component being created when the app starts up -->
   <the-header></the-header>
 
   <router-view v-slot="slotProps">
@@ -14,6 +15,10 @@ import TheHeader from './components/layout/TheHeader.vue'
 export default {
   components: {
     TheHeader
+  },
+
+  created() {
+    this.$store.dispatch('tryLogin')
   }
 }
 </script>

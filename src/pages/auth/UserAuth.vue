@@ -114,7 +114,7 @@ export default {
           await this.signup(actionPayload)
         }
 
-        // Will construct a string which is either '/'' and what is stored in the redirect parameter or /coaches
+        // Will construct a string which is either '/' and what is stored in the redirect parameter or /coaches
         const redirectUrl = '/' + (this.$route.query.redirect || 'coaches')
 
         this.$router.replace(redirectUrl)

@@ -31,7 +31,6 @@ export default {
     },
 
     to: {
-      type: Object,
       required: false,
       default () {
         return { name: 'coaches-list' }
