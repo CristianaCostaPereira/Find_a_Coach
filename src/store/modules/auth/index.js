@@ -9,7 +9,7 @@ const authModule = {
 
   mutations: {
     setUser (state, payload) {
-      state.token = payload.token
+      state.token = payload.token // Token stored in Vuex
       state.userId = payload.userId
       state.tokenExpiration = payload.tokenExpiration
     }
@@ -75,6 +75,10 @@ const authModule = {
   getters: {
     userId (state) {
       return state.userId
+    },
+
+    token (state) {
+      return state.token
     }
   }
 }
