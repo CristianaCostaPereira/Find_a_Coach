@@ -23,7 +23,15 @@
           </base-button>
 
           <base-button
-            v-if="!isCoach && !isLoading"
+            v-if="!isAuthenticated"
+            link
+            :to="{ name: 'auth' }">
+
+            Login
+          </base-button>
+
+          <base-button
+            v-if="isAuthenticated && !isCoach && !isLoading"
             link
             :to="{ name: 'register' }">
 
@@ -58,11 +66,13 @@
 import { mapGetters, mapActions } from 'vuex'
 import CoachItem from '../../components/coaches/CoachItem.vue'
 import CoachFilter from '../../components/coaches/CoachFilter.vue'
+import BaseButton from '../../components/ui/BaseButton.vue'
 
 export default {
   components: {
     CoachItem,
-    CoachFilter
+    CoachFilter,
+    BaseButton
   },
 
   data () {
@@ -80,6 +90,7 @@ export default {
 
   computed: {
     ...mapGetters ('coaches', ['coaches', 'hasCoaches', 'isCoach']),
+    ...mapGetters (['isAuthenticated']),
 
     filteredCoaches () {
       return this.coaches.filter(coach => {

@@ -10,15 +10,31 @@
           </router-link>
         </li>
 
-        <li>
+        <li v-if="isAuthenticated">
           <router-link :to="{ name: 'requests' }">
             Requests
+          </router-link>
+        </li>
+
+        <li v-else>
+          <router-link :to="{ name: 'auth' }">
+            Login
           </router-link>
         </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['isAuthenticated'])
+  }
+}
+</script>
 
 <style scoped>
 header {
