@@ -113,6 +113,12 @@ export default {
         } else {
           await this.signup(actionPayload)
         }
+
+        // Will construct a string which is either '/'' and what is stored in the redirect parameter or /coaches
+        const redirectUrl = '/' + (this.$route.query.redirect || 'coaches')
+
+        this.$router.replace(redirectUrl)
+
       } catch (error) {
         this.error = error.message || 'Failed to authenticate, try again later'
       }

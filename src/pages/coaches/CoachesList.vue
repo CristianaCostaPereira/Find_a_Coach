@@ -25,9 +25,9 @@
           <base-button
             v-if="!isAuthenticated"
             link
-            :to="{ name: 'auth' }">
+            to="/auth?redirect=register">
 
-            Login
+            Login to Register as Coach
           </base-button>
 
           <base-button

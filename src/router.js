@@ -7,6 +7,7 @@ import ContactCoach from './pages/requests/ContactCoach'
 import RequestsReceived from './pages/requests/RequestsReceived'
 import NotFound from './pages/NotFound'
 import UserAuth from './pages/auth/UserAuth'
+import store from './store/index'
 
 const router = createRouter ({
   history: createWebHistory(),
@@ -22,11 +23,22 @@ const router = createRouter ({
         { path: 'contact', name: 'coach-contact', component: ContactCoach  }
       ]
     },
-    { path: '/register', name: 'register', component: CoachRegistration },
-    { path: '/requests', name: 'requests', component: RequestsReceived },
-    { path: '/auth', name: 'auth', component: UserAuth },
+    { path: '/register', name: 'register', component: CoachRegistration, meta: {requiresAuth: true} },
+    { path: '/requests', name: 'requests', component: RequestsReceived, meta: {requiresAuth: true} },
+    { path: '/auth', name: 'auth', component: UserAuth, meta: {requiresUnauth: true} },
     { path: '/:notFound(.*)', name: 'not-found', component: NotFound }
   ]
+})
+
+// Global navigation guard creation
+router.beforeEach(function (to, _, next) {
+  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+    next('/auth')
+  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+    next('/coaches')
+  } else {
+    next()
+  }
 })
 
 export default router

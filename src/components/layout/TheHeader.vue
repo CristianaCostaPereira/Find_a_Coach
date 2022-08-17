@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
@@ -39,7 +39,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(['logout'])
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.replace({ name: 'coaches-list' })
+    }
   }
 }
 </script>
