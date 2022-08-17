@@ -1,9 +1,13 @@
+// Global variable
+// To make sure that we only have one timer active at a time
+let timer
+
 const authModule = {
   state () {
     return {
       userId: null,
       token: null,
-      tokenExpiration: null
+      didAutoLogout: false
     }
   },
 
@@ -11,7 +15,11 @@ const authModule = {
     setUser (state, payload) {
       state.token = payload.token // Token stored in Vuex
       state.userId = payload.userId
-      state.tokenExpiration = payload.tokenExpiration
+      state.didAutoLogout = false
+    },
+
+    setAutoLogout (state) {
+      state.didAutoLogout = true
     }
   },
 
@@ -61,36 +69,68 @@ const authModule = {
         throw error
       }
 
-      // We do not just commit our token and userId into Vuex (lines 68-73), but we also store it in the browser storage
+      // The '+' ensure that the result is converted from string to a number
+      // * 1000 to have the result in milliseconds
+      const expiresIn = +responseData.expiresIn * 1000
+
+      const expirationDate = new Date().getTime() + expiresIn
+
+      // token and userId stored it in the browser storage
       localStorage.setItem('token', responseData.idToken)
       localStorage.setItem('userId', responseData.localId)
+      localStorage.setItem('tokenExpiration', expirationDate)
 
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout')
+      }, expiresIn)
+
+      // Data stored/commited in Vuex
       context.commit('setUser', {
         token: responseData.idToken,
-        userId: responseData.localId,
-        tokenExpiration: responseData.expiresIn
+        userId: responseData.localId
       })
     },
 
     tryLogin (context) {
       const token = localStorage.getItem('token')
       const userId = localStorage.getItem('userId')
+      const tokenExpiration = localStorage.getItem('tokenExpiration')
+
+      const expiresIn = +tokenExpiration - new Date().getTime()
+
+      if (expiresIn < 0) {
+        return
+      }
+
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout')
+      }, expiresIn)
 
       if (token && userId) {
         context.commit('setUser', {
           token: token, // sets token to the token extracted from localStorage
-          userId: userId,
-          tokenExpiration: null
+          userId: userId
         })
       }
     },
 
-    logout(context) {
+    logout (context) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('tokenExpiration')
+
+      // To clear the ongoing timer
+      clearTimeout(timer)
+
       context.commit('setUser', {
         token: null,
-        userId: null,
-        tokenExpiration: null
+        userId: null
       })
+    },
+
+    autoLogout (context) {
+      context.dispatch('logout')
+      context.commit('setAutoLogout')
     }
   },
 
@@ -105,6 +145,10 @@ const authModule = {
 
     isAuthenticated (state) {
       return !!state.token
+    },
+
+    didAutoLogout (state) {
+      return state.didAutoLogout
     }
   }
 }
