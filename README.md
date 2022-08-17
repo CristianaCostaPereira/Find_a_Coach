@@ -33,9 +33,13 @@ In `requests` we will be able to:
   * send requests to coaches;
   * as a registered coach, view all your incoming requests (messages) and use the email address to reply back;
 
+Last, but not least, the `authentication`:
+  * add users, so they can login and sign up;
+  * allow the ones that sign up to become a coach.
+
 <br>
 
-It uses routing and animations (new features learned).
+It uses routing and animations (more new features learned).
 
 It also uses `Vuex` to manage data.
 
@@ -59,12 +63,16 @@ Once all the dependencies have been installed start the development server with:
 npm run serve
 ```
 
+<br>
+
 ## Conclusion
-With this project I was able to practice what I have learned thus far and also apply new Vue features such as routing and Vuex.
+With this project I was able to practice what I have learned thus far and also apply new Vue features such as routing and Vuex, as well as authentication (including navigation guards).
 
 This project allowed me to push forward and create a more dynamic and elaborated Vue.js application.
 
-Great focus on `vue-router`, `Vuex`, and `HTTP requests`.
+Great focus on `vue-router`, `Vuex`, `authentication` and `HTTP requests`.
+
+<br>
 
 ## Author
 [Cristiana Costa Pereira](https://github.com/CristianaCostaPereira) :octocat:
