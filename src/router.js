@@ -1,32 +1,63 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import CoachDetail from './pages/coaches/CoachDetail'
-import CoachesList from './pages/coaches/CoachesList'
-import CoachRegistration from './pages/coaches/CoachRegistration'
-import ContactCoach from './pages/requests/ContactCoach'
-import RequestsReceived from './pages/requests/RequestsReceived'
-import NotFound from './pages/NotFound'
-import UserAuth from './pages/auth/UserAuth'
 import store from './store/index'
+
+// const CoachDetail = () => import('./pages/coaches/CoachDetail.vue');
 
 const router = createRouter ({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/coaches' },
-    { path: '/coaches', name: 'coaches-list', component: CoachesList },
+    {
+      path: '/',
+      redirect: '/coaches'
+    },
+
+    {
+      path: '/coaches',
+      name: 'coaches-list',
+      component: () => import(/* webpackChunkName: "coaches-list" */ './pages/coaches/CoachesList')
+    },
+
     {
       path: '/coaches/:id',
       name: 'coach',
-      component: CoachDetail,
+      component: () => import(/* webpackChunkName: "coach-details" */ './pages/coaches/CoachDetail'),
       props: true,
       children: [
-        { path: 'contact', name: 'coach-contact', component: ContactCoach  }
+        {
+          path: 'contact',
+          name: 'coach-contact',
+          component: () => import(/* webpackChunkName: "contact-coach" */ './pages/requests/ContactCoach')
+        }
       ]
     },
-    { path: '/register', name: 'register', component: CoachRegistration, meta: {requiresAuth: true} },
-    { path: '/requests', name: 'requests', component: RequestsReceived, meta: {requiresAuth: true} },
-    { path: '/auth', name: 'auth', component: UserAuth, meta: {requiresUnauth: true} },
-    { path: '/:notFound(.*)', name: 'not-found', component: NotFound }
+
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "register" */ './pages/coaches/CoachRegistration'),
+      meta: { requiresAuth: true }
+    },
+
+    {
+      path: '/requests',
+      name: 'requests',
+      component: () => import(/* webpackChunkName: "requests" */ './pages/requests/RequestsReceived'),
+      meta: { requiresAuth: true }
+    },
+
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import(/* webpackChunkName: "auth" */ './pages/auth/UserAuth'),
+      meta: { requiresUnauth: true }
+    },
+
+    {
+      path: '/:notFound(.*)',
+      name: 'not-found',
+      component: () => import(/* webpackChunkName: "not-found" */ './pages/NotFound'),
+    }
   ]
 })
 
