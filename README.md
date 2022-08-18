@@ -12,11 +12,11 @@ Web app built, from the ground up, with <ins>**Vue.js**</ins> *(version 3)* with
 <br>
 
 ## Introduction
-This application will have two main features:
+This application has two main features:
 
   1. find a coach;
 
-  2. send requests (messages) to potential coaches which we want to contact.
+  2. send requests (messages) to coaches which we want to contact.
 
 <br>
 
@@ -31,17 +31,17 @@ Contact a coach feature will, also, establish the connection to the other part o
 
 In `requests` we will be able to:
   * send requests to coaches;
-  * as a registered coach, view all your incoming requests (messages) and use the email address to reply back;
-
-Last, but not least, the `authentication`:
-  * add users, so they can login and sign up;
-  * allow the ones that sign up to become a coach.
+  * as a registered coach, view all your incoming requests (messages) and use the received email address to reply back.
 
 <br>
 
-It uses routing and animations (more new features learned).
+Great focus on `vue-router`, `Vuex` to manage data, `HTTP requests` and `authentication` (new features learned).
 
-It also uses `Vuex` to manage data.
+Regarding `authentication`, it allow us to:
+  * add users, so they can login and sign up;
+  * enabled, the ones that signed up, to become a coach.
+
+<br>
 
 The backend server is hosted by [Firebase](https://firebase.google.com/).
 
@@ -66,11 +66,9 @@ npm run serve
 <br>
 
 ## Conclusion
-With this project I was able to practice what I have learned thus far and also apply new Vue features such as routing and Vuex, as well as authentication (including navigation guards).
+With this project, I was able to practice what I have learned thus far and also apply new Vue features, such as routing, Vuex, and explore how authentication (including navigation guards) works.
 
 This project allowed me to push forward and create a more dynamic and elaborated Vue.js application.
-
-Great focus on `vue-router`, `Vuex`, `authentication` and `HTTP requests`.
 
 <br>
 
